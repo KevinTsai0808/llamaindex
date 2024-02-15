@@ -12,8 +12,12 @@ service_context = ServiceContext.from_defaults(chunk_size=1000)
 
 
 # if want to change different vector store
-chroma_client = chromadb.PersistentClient()
-chroma_collection = chroma_client.create_collection("testing")
+# initialize client, setting path to save data
+chroma_client = chromadb.PersistentClient(path="./testing_chroma")
+# create or loading collection
+# chroma_collection = chroma_client.create_collection("testing")
+chroma_collection = chroma_client.get_or_create_collection("testing")
+# assign chroma as the vector_store to the context
 vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
 storage_context  = StorageContext.from_defaults(vector_store=vector_store)
 
@@ -26,7 +30,7 @@ index = VectorStoreIndex.from_documents(document, service_context=service_contex
 # Step3:Querying
 response_mode = "refine"
 """
-refine : take first chunk to LLM for first response, then the response will be concated with chunk2 for response2,.....
+refine : take first chunk to LLM for first response(text_qa_template), then the response will be concated with chunk2 for response2(refinr_template),.....
 compact: repack + refine
 tree_summarize : top k chunks list -> repack -> LLM -> response_list -> repack -> LLM .....
 simple_summarize : truncate each top k chzunks and feed all the chunks into LLM (to avoid out of input tokens)
@@ -41,4 +45,3 @@ metadata = query_engine.get_prompts()
 for k, p in metadata.items():
     print(p.get_template())
 response.print_response_stream()
-
