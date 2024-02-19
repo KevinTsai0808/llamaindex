@@ -2,7 +2,7 @@ import os
 import chromadb
 from dotenv import load_dotenv
 from llama_index.llms import PaLM
-from llama_index.vector_stores import ChromaVectorStore
+from llama_index.core.vector_stores import ChromaVectorStore
 from llama_index import VectorStoreIndex,SimpleDirectoryReader,ServiceContext,StorageContext
 load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
