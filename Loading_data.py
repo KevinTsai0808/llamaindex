@@ -27,7 +27,7 @@ loader = ImageReader(text_type = "plain_text", model_kwargs=dict(lang="deu+eng")
 documents = loader.load_data(file=Path('./image.png'))
 
 # Creating document 
-from llama_index.schema import Document, TextNode
+from llama_index.core.schema import Document, TextNode
 doc = Document(text='text')
 
 """
@@ -38,7 +38,7 @@ To do the transformations, our input will be Node objects
 (Document us subclass of Node), and output will be Node, too
 """
 from llama_index import VectorStoreIndex, ServiceContext
-from llama_index.text_splitter import SentenceSplitter
+from llama_index.core.text_splitter  import SentenceSplitter
 
 # customize chunk splitter
 # splitter such as HTMLsplitter, SentenceWindowNodeParser, JSONNodeParser
@@ -54,12 +54,12 @@ to the LLM and embedding model
 # for LLM
 documents.excluded_llm_metadata_keys = ["file_name"]
 # check if file_name is invisible to LLM
-from llama_index.schema import MetadataMode
+from llama_index.core.schema import MetadataMode
 print(documents.get_content(metadata_mode=MetadataMode.LLM))
 # for embedding model
 documents.excluded_embed_metadata_keys = ["file_name"]
 # check if file_name is invisible to embedding model
-from llama_index.schema import MetadataMode
+from llama_index.core.schema  import MetadataMode
 print(documents.get_content(metadata_mode=MetadataMode.EMBED))
 
 # customized metadata format
@@ -79,7 +79,7 @@ documents.text_template = "Metadata: {metadata_str}\n-----\nContent: {content}"
 we can use LLM to extract metadata from each Node
 """
 from llama_index.llms import OpenAI
-from llama_index.extractors import (
+from llama_index.core.extractors import (
     SummaryExtractor,
     QuestionsAnsweredExtractor,
 )
