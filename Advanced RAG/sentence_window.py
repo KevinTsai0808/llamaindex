@@ -30,7 +30,7 @@ Settings.embed_model = embed_model
 Settings.text_splitter = text_splitter
 
 documents = SimpleDirectoryReader(
-    input_files=["./data/IPCC_AR6_WGII_Chapter03.pdf"]
+    input_files=["./data/example2/IPCC_AR6_WGII_Chapter03.pdf"]
 ).load_data()
 
 # load data

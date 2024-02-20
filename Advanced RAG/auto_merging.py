@@ -17,7 +17,7 @@ load_dotenv()
 openai_api_key = os.getenv("OPENAI_API_KEY")
 loader = PyMuPDFReader()
 # by default, create documents by page
-document = loader.load_data(file_path=Path("./data/llama2.pdf"))
+document = loader.load_data(file_path=Path("./data/example3/llama2.pdf"))
 # merge all the text to rebuild node
 doc_text = "\n\n".join([d.get_content() for d in document])
 documents = [Document(text=doc_text)]
