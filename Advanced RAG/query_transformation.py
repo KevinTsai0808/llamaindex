@@ -50,7 +50,11 @@ query_engine = MultiStepQueryEngine(
     query_engine=query_engine, 
     query_transform=step_decompose_transform,
     index_summary=index_summary)
-# prompt = MultiStepQueryEngine.get_prompts(query_engine)
+
+response = query_engine.query("Who was in the first batch of the accelerator program the author started")
+print(response)
+
+# prompt_for_query_transform = MultiStepQueryEngine.get_prompts(query_engine)
 # prompt : "The original question is as follows: {query_str}\nWe have an opportunity to answer some, 
 # or all of the question from a knowledge source. Context information for the knowledge source is provided 
 # below, as well as previous reasoning steps.\nGiven the context and previous reasoning, return a question that
@@ -69,6 +73,3 @@ query_engine = MultiStepQueryEngine(
 # for each winner\nPrevious reasoning:\n- Who was the winner of the 2020 Australian Open? \n- The winner of the 2020 Australian
 #  Open was Novak Djokovic.\nNew question: How many Grand Slam titles does Novak Djokovic have? \n\nQuestion: {query_str}\nKnowledge
 # source context: {context_str}\nPrevious reasoning: {prev_reasoning}\nNew question: 
-
-response = query_engine.query("Who was in the first batch of the accelerator program the author started")
-print(response)
